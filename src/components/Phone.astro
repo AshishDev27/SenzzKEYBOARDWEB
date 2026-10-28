@@ -1,6 +1,7 @@
 ---
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { url } from '../site';
 
 // A phone frame around a real app screenshot from public/screenshots/.
 // If the file isn't there yet, it shows a clearly marked placeholder instead, so nothing is faked.
@@ -17,7 +18,7 @@ const found = existsSync(join(process.cwd(), 'public', 'screenshots', shot));
   <div class="frame">
     <div class="screen">
       {found ? (
-        <img src={`/screenshots/${shot}`} alt={alt} width="1080" height="2400"
+        <img src={url(`/screenshots/${shot}`)} alt={alt} width="1080" height="2400"
           loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : 'auto'} />
       ) : (
         <div class="placeholder" role="img" aria-label={`Screenshot placeholder: ${alt}`}>

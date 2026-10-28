@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import '../styles/global.css';
 import Logo from '../components/Logo.astro';
 import Icon from '../components/Icon.astro';
-import { SITE } from '../site';
+import { SITE, url } from '../site';
 
 interface Props {
   title: string;        // page title, without the "· Senzz" suffix
@@ -13,16 +13,17 @@ interface Props {
 }
 const { title, description = SITE.description, noindex = false } = Astro.props;
 const fullTitle = title === SITE.name ? `${SITE.name}: AI texting keyboard for Android` : `${title} · ${SITE.name}`;
-// build.format 'file' gives "/privacy.html" and "/index.html"; canonical is "/privacy" and "/".
-const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/'), SITE.url).href;
+// build.format 'file' gives ".../privacy.html" and ".../index.html"; canonical is ".../privacy" and ".../".
+// Astro.url.pathname already includes the base path.
+const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/'), Astro.site).href;
 // Social preview image: only referenced once public/og-image.png exists (see LAUNCH_CHECKLIST.md).
-const ogImage = existsSync(join(process.cwd(), 'public', 'og-image.png')) ? new URL('/og-image.png', SITE.url).href : null;
+const ogImage = existsSync(join(process.cwd(), 'public', 'og-image.png')) ? new URL(url('/og-image.png'), Astro.site).href : null;
 
 const nav = [
-  { href: '/#features', label: 'Features' },
-  { href: '/#privacy', label: 'Privacy' },
-  { href: '/faq', label: 'FAQ' },
-  { href: '/support', label: 'Support' },
+  { href: url('/#features'), label: 'Features' },
+  { href: url('/#privacy'), label: 'Privacy' },
+  { href: url('/faq'), label: 'FAQ' },
+  { href: url('/support'), label: 'Support' },
 ];
 const year = new Date().getFullYear();
 ---
@@ -39,9 +40,9 @@ const year = new Date().getFullYear();
   <link rel="canonical" href={canonical} />
   {noindex && <meta name="robots" content="noindex" />}
   <meta name="theme-color" content="#0B0C0E" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="sitemap" href="/sitemap-index.xml" />
-  <link rel="preload" href="/fonts/geist.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+  <link rel="sitemap" href={url('/sitemap-index.xml')} />
+  <link rel="preload" href={url('/fonts/geist.ttf')} as="font" type="font/ttf" crossorigin />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content={SITE.name} />
@@ -59,7 +60,7 @@ const year = new Date().getFullYear();
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap bar">
-      <a class="brand" href="/" aria-label="Senzz home"><Logo /><span>Senzz</span></a>
+      <a class="brand" href={url('/')} aria-label="Senzz home"><Logo /><span>Senzz</span></a>
       <nav class="links" aria-label="Main">
         {nav.map((l) => <a href={l.href}>{l.label}</a>)}
       </nav>
@@ -79,27 +80,27 @@ const year = new Date().getFullYear();
   <footer class="site-footer">
     <div class="wrap foot">
       <div class="foot-brand">
-        <a class="brand" href="/" aria-label="Senzz home"><Logo /><span>Senzz</span></a>
+        <a class="brand" href={url('/')} aria-label="Senzz home"><Logo /><span>Senzz</span></a>
         <p>Your texting copilot.</p>
         <a class="mail" href={`mailto:${SITE.supportEmail}`}><Icon name="mail" />{SITE.supportEmail}</a>
       </div>
       <nav class="foot-links" aria-label="Footer">
         <div>
           <span class="label">Product</span>
-          <a href="/#features">Features</a>
-          <a href="/#pricing">Credits &amp; Pro</a>
-          <a href="/faq">FAQ</a>
+          <a href={url('/#features')}>Features</a>
+          <a href={url('/#pricing')}>Credits &amp; Pro</a>
+          <a href={url('/faq')}>FAQ</a>
           <a href={SITE.playUrl} rel="noopener">Google Play</a>
         </div>
         <div>
           <span class="label">Help</span>
-          <a href="/support">Support</a>
-          <a href="/delete-account">Delete account</a>
+          <a href={url('/support')}>Support</a>
+          <a href={url('/delete-account')}>Delete account</a>
         </div>
         <div>
           <span class="label">Legal</span>
-          <a href="/privacy">Privacy Policy</a>
-          <a href="/terms">Terms</a>
+          <a href={url('/privacy')}>Privacy Policy</a>
+          <a href={url('/terms')}>Terms</a>
         </div>
       </nav>
     </div>

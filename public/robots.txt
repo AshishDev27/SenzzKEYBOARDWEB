@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://senzz.org/sitemap-index.xml
+Sitemap: https://ashishdev27.github.io/SenzzKEYBOARDWEB/sitemap-index.xml

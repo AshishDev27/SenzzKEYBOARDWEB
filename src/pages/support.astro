@@ -1,13 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import { SITE, mailto } from '../site';
+import { SITE, mailto, url } from '../site';
 
 const topics = [
-  { icon: 'keyboard', title: 'Keyboard won’t show up', body: 'Open the Senzz app and finish setup: enable Senzz in Settings › System › Keyboard › Manage, then pick it in the keyboard chooser.', href: '/faq#setup' },
-  { icon: 'suggest', title: 'Suggest can’t read the chat', body: 'Turn on Settings › Conversation analysis, then switch on “Senzz chat reading” in Android’s Accessibility settings. Or copy the message and use “Use copied”.', href: '/faq#chat' },
-  { icon: 'credit', title: 'Credits and Senzz Pro', body: 'Pro not showing after you paid? Open the app’s Senzz Pro screen and tap Restore purchases while signed in to the same Google account.', href: '/faq#credits' },
-  { icon: 'lock', title: 'Privacy and your data', body: 'What Senzz reads, when, and what it keeps. You can also delete your account at any time.', href: '/privacy' },
+  { icon: 'keyboard', title: 'Keyboard won’t show up', body: 'Open the Senzz app and finish setup: enable Senzz in Settings › System › Keyboard › Manage, then pick it in the keyboard chooser.', href: url('/faq#setup') },
+  { icon: 'suggest', title: 'Suggest can’t read the chat', body: 'Turn on Settings › Conversation analysis, then switch on “Senzz chat reading” in Android’s Accessibility settings. Or copy the message and use “Use copied”.', href: url('/faq#chat') },
+  { icon: 'credit', title: 'Credits and Senzz Pro', body: 'Pro not showing after you paid? Open the app’s Senzz Pro screen and tap Restore purchases while signed in to the same Google account.', href: url('/faq#credits') },
+  { icon: 'lock', title: 'Privacy and your data', body: 'What Senzz reads, when, and what it keeps. You can also delete your account at any time.', href: url('/privacy') },
 ] as const;
 ---
 <Base title="Support" description="Get help with the Senzz AI texting keyboard: setup, Suggest, credits, Senzz Pro and your account.">
@@ -15,7 +15,7 @@ const topics = [
     <header class="page-head">
       <span class="label">Support</span>
       <h1 class="h2">How can we help?</h1>
-      <p class="lede">Most answers are in the <a href="/faq">FAQ</a>. Still stuck? Email us and a real person will reply, usually within 2 business days.</p>
+      <p class="lede">Most answers are in the <a href={url('/faq')}>FAQ</a>. Still stuck? Email us and a real person will reply, usually within 2 business days.</p>
     </header>
 
     <div class="card contact">
@@ -45,7 +45,7 @@ const topics = [
         <h2 class="h3">Delete your account</h2>
         <p>Delete your Senzz account and data in the app or by email.</p>
       </div>
-      <a class="btn btn-secondary" href="/delete-account">How to delete</a>
+      <a class="btn btn-secondary" href={url('/delete-account')}>How to delete</a>
     </div>
   </div>
 </Base>

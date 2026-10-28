@@ -53,7 +53,7 @@ We may suspend or close accounts that break these rules.
 
 ## 7. Your content
 
-You keep all rights to the text you type and send. You give us permission to process it only to provide the Service, as described in the [Privacy Policy](/privacy). As far as we're concerned, you may use the AI's output for whatever you like, subject to the law and these terms.
+You keep all rights to the text you type and send. You give us permission to process it only to provide the Service, as described in the [Privacy Policy](privacy). As far as we're concerned, you may use the AI's output for whatever you like, subject to the law and these terms.
 
 ## 8. Ending your account
 

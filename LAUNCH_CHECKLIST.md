@@ -8,27 +8,25 @@
 - [ ] Optional: add `public/apple-touch-icon.png` (180 × 180) for iOS home-screen bookmarks.
 
 ## Legal
-- [ ] `src/legal/privacy.md` and `terms.md` are copies of the app's `assets/legal` files. After any change there, copy them over again and replace `senzz-legal:` links with `/`.
+- [ ] `src/legal/privacy.md` and `terms.md` are copies of the app's `assets/legal` files. After any change there, copy them over again and replace `(senzz-legal:terms)` / `(senzz-legal:privacy)` links with `(terms)` / `(privacy)`.
 - [ ] The app's Privacy Policy has no contact address; the website page adds one. Consider adding it in the app too.
 - [ ] Add your legal entity name and country to both documents if you register a company. Have them reviewed.
-- [ ] Optional: once live, point the app's `AppLinks.TERMS_URL` / `PRIVACY_URL` (now in-app `senzz-legal:` pages) at `https://senzz.org/terms` and `/privacy`.
+- [ ] Optional: once live, point the app's `AppLinks.TERMS_URL` / `PRIVACY_URL` (now in-app `senzz-legal:` pages) at `https://ashishdev27.github.io/SenzzKEYBOARDWEB/terms` and `/privacy`.
 
 ## Google Play Console
-- [ ] **Privacy policy URL**: `https://senzz.org/privacy`
-- [ ] **Account deletion URL** (Data safety › Data deletion): `https://senzz.org/delete-account`
-- [ ] **Support email**: `senzzcorps@gmail.com`; **Website**: `https://senzz.org`
+- [ ] **Privacy policy URL**: `https://ashishdev27.github.io/SenzzKEYBOARDWEB/privacy`
+- [ ] **Account deletion URL** (Data safety › Data deletion): `https://ashishdev27.github.io/SenzzKEYBOARDWEB/delete-account`
+- [ ] **Support email**: `senzzcorps@gmail.com`; **Website**: `https://ashishdev27.github.io/SenzzKEYBOARDWEB/`
 - [ ] Data safety form answers match the Privacy Policy (email, purchase history, app interactions; messages processed but not stored).
 - [ ] Accessibility (AccessibilityService) declaration and video, matching the "Conversation analysis" text.
 
 ## Deploy
 - [ ] Repo **Settings › Pages › Source** = GitHub Actions; first workflow run is green.
-- [ ] DNS records added (see README); custom domain `senzz.org` verified; **Enforce HTTPS** on.
-- [ ] Optional: verify the domain under your GitHub account settings (Pages › Verified domains) so no one else can claim it.
-- [ ] `https://www.senzz.org` redirects to `https://senzz.org`.
+- [ ] **Settings › Pages › Custom domain** is empty.
 
 ## Final checks on the live site
-- [ ] Every page loads: `/`, `/privacy`, `/terms`, `/support`, `/delete-account`, `/faq`; a random URL shows the 404 page.
-- [ ] `https://senzz.org/robots.txt` and `https://senzz.org/sitemap-index.xml` load.
+- [ ] Every page loads under `https://ashishdev27.github.io/SenzzKEYBOARDWEB/`: `/privacy`, `/terms`, `/support`, `/delete-account`, `/faq`; a random URL shows the 404 page.
+- [ ] `https://ashishdev27.github.io/SenzzKEYBOARDWEB/sitemap-index.xml` loads. (A `robots.txt` under a project path is ignored by crawlers, so submit the sitemap in Search Console.)
 - [ ] Support email links open a new email to `senzzcorps@gmail.com`.
 - [ ] Phone check: menu opens, nothing scrolls sideways, text is readable.
 - [ ] Lighthouse (Chrome DevTools) scores for Performance, Accessibility, Best Practices and SEO.

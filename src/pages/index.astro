@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Phone from '../components/Phone.astro';
 import Icon from '../components/Icon.astro';
-import { SITE } from '../site';
+import { SITE, url } from '../site';
 
 // Copy below is taken from the app's own strings (res/values/strings_*.xml) wherever it exists.
 const features = [
@@ -161,7 +161,7 @@ const steps = [
             </li>
           ))}
         </ul>
-        <a class="btn btn-ghost" href="/privacy">Read the full privacy policy <Icon name="arrow" /></a>
+        <a class="btn btn-ghost" href={url('/privacy')}>Read the full privacy policy <Icon name="arrow" /></a>
       </div>
     </div>
   </section>
@@ -214,7 +214,7 @@ const steps = [
             <li class="card"><span class="step-n">{i + 1}</span><div><h3>{t}</h3><p>{h}</p></div></li>
           ))}
         </ol>
-        <p class="plan-note">Android warns that any keyboard can collect what you type. That’s a standard message. <a href="/privacy">See what Senzz actually does.</a></p>
+        <p class="plan-note">Android warns that any keyboard can collect what you type. That’s a standard message. <a href={url('/privacy')}>See what Senzz actually does.</a></p>
       </div>
       <div class="feature-shot">
         <Phone shot="setup.png" alt="Senzz onboarding screen: Turn on Senzz Keyboard" />
@@ -230,7 +230,7 @@ const steps = [
         <p class="lede">Your AI texting copilot, right inside your keyboard. Android 8.0 and up.</p>
         <div class="ctas">
           <a class="btn btn-primary" href={SITE.playUrl} rel="noopener">Get it on Google Play <Icon name="arrow" /></a>
-          <a class="btn btn-secondary" href="/faq">Read the FAQ</a>
+          <a class="btn btn-secondary" href={url('/faq')}>Read the FAQ</a>
         </div>
       </div>
     </div>

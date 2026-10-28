@@ -2,7 +2,7 @@
 
 Version 1.0 · Effective 28 October 2026 · Last updated 28 October 2026
 
-This policy explains what Senzz Keyboard ("Senzz", "we") does with your information: what is processed, why, where it is kept, for how long, and how you control it. It covers the Senzz Android app, including the Senzz keyboard and its AI features. Please also read the [Terms of Service](/terms).
+This policy explains what Senzz Keyboard ("Senzz", "we") does with your information: what is processed, why, where it is kept, for how long, and how you control it. It covers the Senzz Android app, including the Senzz keyboard and its AI features. Please also read the [Terms of Service](terms).
 
 ## The short version
 
