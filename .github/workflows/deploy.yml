@@ -1,8 +1,11 @@
+# Builds the Astro site with Node and deploys dist/ to GitHub Pages.
+# Needs Settings › Pages › Source = "GitHub Actions" (not "Deploy from a branch", which runs Jekyll).
 name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    # The repo's default branch is currently master; main is listed so a rename to main keeps deploying.
+    branches: [main, master]
   workflow_dispatch:
 
 permissions:
@@ -10,6 +13,7 @@ permissions:
   pages: write
   id-token: write
 
+# One deployment at a time; let an in-progress one finish instead of cancelling it.
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -18,14 +22,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
+      - uses: actions/configure-pages@v6
       - run: npm ci
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
@@ -37,4 +42,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

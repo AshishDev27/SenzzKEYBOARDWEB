@@ -56,7 +56,10 @@ resources. If you add a script or an external service later, update that policy.
    git push -u origin main
    ```
 3. In the repo go to **Settings › Pages** and set **Source** to **GitHub Actions**.
-   Every push to `main` now builds and deploys (`.github/workflows/deploy.yml`).
+   Every push to `main` or `master` now builds and deploys (`.github/workflows/deploy.yml`).
+   If the Actions tab shows a run called **"pages build and deployment"** failing on `.astro`
+   files, Source is still **Deploy from a branch**: that's GitHub's built-in Jekyll build,
+   not this workflow. Switch Source to GitHub Actions.
 4. Custom domain: in **Settings › Pages › Custom domain** enter `senzz.org` and save.
    (`public/CNAME` already contains it.)
 5. At your domain registrar add these DNS records:
