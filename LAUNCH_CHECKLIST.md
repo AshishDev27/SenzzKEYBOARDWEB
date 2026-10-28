@@ -1,7 +1,8 @@
 # Launch checklist
 
 ## Content
-- [ ] Add the 7 real app screenshots to `public/screenshots/` (names in its README). Build and check that no "Screenshot placeholder" is left.
+- [x] Screenshots in `public/screenshots/` are renders of the Claude Design artboards. Optional: swap in real device captures (same names, 1170 × 2532).
+- [ ] The design's mock values show in the screenshots: "₹399 / mo" on Home, and "Export or delete your data" and "Screen capture permission" on Settings. Make sure these match the released app, or swap those screenshots.
 - [ ] Add `public/og-image.png` (1200 × 630) for link previews.
 - [ ] Confirm the Play Store link in `src/site.ts` (`com.senzz.keyboard`) is live. Until it is, "Get it on Google Play" buttons lead to a "not found" page.
 - [ ] Check the numbers on the site still match the app: 20 welcome credits, 1,000 Pro credits/month, 1 credit per action, Android 8.0+.

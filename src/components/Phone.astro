@@ -18,7 +18,7 @@ const found = existsSync(join(process.cwd(), 'public', 'screenshots', shot));
   <div class="frame">
     <div class="screen">
       {found ? (
-        <img src={url(`/screenshots/${shot}`)} alt={alt} width="1080" height="2400"
+        <img src={url(`/screenshots/${shot}`)} alt={alt} width="1170" height="2532"
           loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : 'auto'} />
       ) : (
         <div class="placeholder" role="img" aria-label={`Screenshot placeholder: ${alt}`}>
@@ -51,7 +51,7 @@ const found = existsSync(join(process.cwd(), 'public', 'screenshots', shot));
   .frame::after { top: 34%; height: 15%; }
   .screen {
     position: relative;
-    aspect-ratio: 9 / 20;
+    aspect-ratio: 390 / 844; /* the Claude Design artboard size */
     border-radius: 37px;
     overflow: hidden;
     background: var(--canvas);
