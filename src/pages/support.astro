@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { SITE, mailto } from '../site';
+
+const topics = [
+  { icon: 'keyboard', title: 'Keyboard won’t show up', body: 'Open the Senzz app and finish setup: enable Senzz in Settings › System › Keyboard › Manage, then pick it in the keyboard chooser.', href: '/faq#setup' },
+  { icon: 'suggest', title: 'Suggest can’t read the chat', body: 'Turn on Settings › Conversation analysis, then switch on “Senzz chat reading” in Android’s Accessibility settings. Or copy the message and use “Use copied”.', href: '/faq#chat' },
+  { icon: 'credit', title: 'Credits and Senzz Pro', body: 'Pro not showing after you paid? Open the app’s Senzz Pro screen and tap Restore purchases while signed in to the same Google account.', href: '/faq#credits' },
+  { icon: 'lock', title: 'Privacy and your data', body: 'What Senzz reads, when, and what it keeps. You can also delete your account at any time.', href: '/privacy' },
+] as const;
+---
+<Base title="Support" description="Get help with the Senzz AI texting keyboard: setup, Suggest, credits, Senzz Pro and your account.">
+  <div class="wrap">
+    <header class="page-head">
+      <span class="label">Support</span>
+      <h1 class="h2">How can we help?</h1>
+      <p class="lede">Most answers are in the <a href="/faq">FAQ</a>. Still stuck? Email us and a real person will reply, usually within 2 business days.</p>
+    </header>
+
+    <div class="card contact">
+      <div>
+        <span class="label">Email support</span>
+        <p class="email">{SITE.supportEmail}</p>
+        <p class="tip">Tell us your phone model, Android version, the Senzz version (shown in Settings) and what happened. Please don’t send passwords or one-time codes.</p>
+      </div>
+      <a class="btn btn-primary" href={mailto('Senzz support')}><Icon name="mail" />Email support</a>
+    </div>
+
+    <ul class="topics">
+      {topics.map((t) => (
+        <li>
+          <a class="card topic" href={t.href}>
+            <span class="tile-icon"><Icon name={t.icon} /></span>
+            <span class="h3">{t.title}</span>
+            <span class="body">{t.body}</span>
+            <span class="more">Learn more <Icon name="arrow" /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="card account">
+      <div>
+        <h2 class="h3">Delete your account</h2>
+        <p>Delete your Senzz account and data in the app or by email.</p>
+      </div>
+      <a class="btn btn-secondary" href="/delete-account">How to delete</a>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .page-head a { color: var(--volt); }
+  .contact, .account { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 28px; }
+  .contact { background: var(--volt-tint); box-shadow: 0 0 0 1px rgb(200 241 53 / 0.18); }
+  .email { margin: 12px 0 8px; font: 700 clamp(24px, 4vw, 34px)/1.1 var(--display); letter-spacing: -0.03em; word-break: break-all; }
+  .tip { margin: 0; color: var(--text2); max-width: 36em; font-size: 15px; }
+  .topics { list-style: none; margin: 16px 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .topic { display: grid; gap: 10px; align-content: start; height: 100%; padding: 24px; text-decoration: none; transition: background-color 150ms var(--ease); }
+  .topic:hover { background: var(--raised); }
+  .tile-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-button); background: var(--inset); color: var(--volt); }
+  .tile-icon :global(svg) { width: 22px; height: 22px; }
+  .body { color: var(--text2); font-size: 15px; }
+  .more { display: inline-flex; align-items: center; gap: 6px; color: var(--volt); font-size: 14px; font-weight: 500; margin-top: 4px; }
+  .more :global(svg) { width: 16px; height: 16px; }
+  .account { margin-bottom: 96px; }
+  .account p { margin: 6px 0 0; color: var(--text2); }
+  @media (max-width: 720px) { .topics { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,337 @@
+---
+import Base from '../layouts/Base.astro';
+import Phone from '../components/Phone.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../site';
+
+// Copy below is taken from the app's own strings (res/values/strings_*.xml) wherever it exists.
+const features = [
+  {
+    id: 'suggest', icon: 'suggest', name: 'Suggest', hint: 'Replies that fit the chat',
+    title: 'Three replies that actually fit.',
+    body: 'Tap Suggest and Senzz reads the vibe of the chat, then hands you three replies in your tone. Insert one, copy it, or ask for more.',
+    points: [
+      'Reads the visible chat only at the moment you tap, and only with your permission',
+      'Tones: Natural, Funny, Playful, Confident, Flirty, Supportive, Professional, Casual or a Mix',
+      'No chat access? Use text you copied instead',
+    ],
+    shot: 'suggest.png', alt: 'Senzz keyboard showing three suggested replies',
+  },
+  {
+    id: 'enhance', icon: 'enhance', name: 'Enhance', hint: 'Polish your draft, keep your meaning',
+    title: 'Say it better. Still sound like you.',
+    body: 'Typed something that doesn’t land? Enhance rewrites your draft so it reads clearly, without changing what you meant.',
+    points: [
+      'Works on the draft in the field you’re typing in',
+      'Replace your draft in one tap, or keep the original',
+      'Writes in the language you chose: English, Hindi, Hinglish, Bengali and more',
+    ],
+    shot: 'enhance.png', alt: 'Senzz keyboard showing an enhanced version of a draft',
+  },
+  {
+    id: 'fumble', icon: 'fumble', name: 'Fumble Protection', hint: 'Flags risky texts before you send',
+    title: 'Catch the fumble before it’s sent.',
+    body: 'Turn on the shield and Senzz checks your message when you press Send. If it could land badly, you get a heads-up and decide what to do.',
+    points: [
+      'Runs only when you press the keyboard’s Send key with the shield on',
+      'Off by default, with adjustable sensitivity',
+      'If Senzz can’t be reached, your message still sends',
+    ],
+    shot: 'fumble.png', alt: 'Senzz keyboard warning about a possible fumble before sending',
+  },
+] as const;
+
+const languages = [
+  ['HINGLISH', 'kya scene hai aaj? 👀'],
+  ['हिन्दी', 'कहाँ हो आज?'],
+  ['ENGLISH', 'Hey! How’d it go?'],
+  ['বাংলা', 'কী খবর রে?'],
+  ['SLANG', 'lowkey down fr'],
+];
+
+const privacy = [
+  { icon: 'analyze', title: 'Senzz reads a chat only when you ask', body: 'Tapping Suggest starts it. Typing normally never does, and nothing runs in the background.' },
+  { icon: 'lock', title: 'Used to write replies, nothing else', body: 'Text goes to our AI provider for that one request. Senzz doesn’t keep or log it, and never uses it for ads.' },
+  { icon: 'keyboard', title: 'Private fields stay private', body: 'AI is off in password, incognito, number, phone and email fields. Clipboard history stays encrypted on your phone.' },
+] as const;
+
+const steps = [
+  ['Enable Senzz', 'Settings › System › Keyboard › Manage'],
+  ['Switch to Senzz', 'Pick Senzz in the keyboard chooser.'],
+  ['Try a Suggest', 'Open any chat and tap Suggest.'],
+];
+---
+<Base title={SITE.name}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="badge"><span class="dot"></span>AI texting keyboard · Android</span>
+        <h1 class="display">Never overthink a text <span class="accent">again.</span></h1>
+        <p class="lede">Senzz is your AI texting copilot, right inside your keyboard. Get replies that fit the chat, polish your drafts and catch fumbles before you hit send.</p>
+        <div class="ctas">
+          <a class="btn btn-primary" href={SITE.playUrl} rel="noopener">Get it on Google Play <Icon name="arrow" /></a>
+          <a class="btn btn-secondary" href="#features">See how it works</a>
+        </div>
+        <ul class="facts" aria-label="Highlights">
+          <li><Icon name="credit" />20 free AI credits to start</li>
+          <li><Icon name="keyboard" />Typing always stays free</li>
+          <li><Icon name="language" />English, Hindi, Hinglish, Bengali</li>
+        </ul>
+      </div>
+      <div class="hero-phones">
+        <Phone shot="home.png" alt="Senzz Home screen with AI credits and features" class="back" />
+        <Phone shot="suggest.png" alt="Senzz keyboard showing three suggested replies" eager class="front" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature trio -->
+  <section id="features" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Three AI actions · 1 credit each</span>
+        <h2 class="h2">Your keyboard, with a <span class="accent">copilot</span> built in.</h2>
+        <p class="lede">Works in any app you type in. Senzz only uses AI when you tap for it. No AI request is ever sent per keystroke.</p>
+      </div>
+      <div class="trio">
+        {features.map((f) => (
+          <a class:list={['card', 'tile', f.id]} href={`#${f.id}`}>
+            <span class="tile-icon"><Icon name={f.icon} /></span>
+            <span class="h3">{f.name}</span>
+            <span class="tile-hint">{f.hint}</span>
+            <span class="badge"><Icon name="credit" />1 credit</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {features.map((f, i) => (
+    <section id={f.id} class:list={['section', 'feature', f.id, { flip: i % 2 === 1 }]}>
+      <div class="wrap feature-grid">
+        <div class="feature-copy">
+          <span class="feature-name"><Icon name={f.icon} />{f.name}</span>
+          <h2 class="h2">{f.title}</h2>
+          <p class="lede">{f.body}</p>
+          <ul class="points">
+            {f.points.map((p) => <li><Icon name="check" />{p}</li>)}
+          </ul>
+        </div>
+        <div class="feature-shot">
+          <Phone shot={f.shot} alt={f.alt} />
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Languages -->
+  <section class="section langs">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="label">Languages</span>
+        <h2 class="h2">Write it <span class="accent">your</span> way.</h2>
+        <p class="lede">English, Hindi, Hinglish or all of them in one sentence. Senzz picks up your slang, your emojis and your lowercase, and replies like you.</p>
+      </div>
+      <ul class="lang-row" aria-label="Examples">
+        {languages.map(([l, t]) => (
+          <li class="chip"><span class="label">{l}</span><span>{t}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Privacy -->
+  <section id="privacy" class="section">
+    <div class="wrap privacy-grid">
+      <div class="feature-shot">
+        <Phone shot="privacy.png" alt="Senzz onboarding screen explaining privacy and permissions" />
+      </div>
+      <div>
+        <div class="section-head">
+          <span class="label">Privacy</span>
+          <h2 class="h2">Your privacy matters. Plain version, no tricks.</h2>
+        </div>
+        <ul class="privacy-list">
+          {privacy.map((p) => (
+            <li class="card">
+              <span class="tile-icon"><Icon name={p.icon} /></span>
+              <div><h3>{p.title}</h3><p>{p.body}</p></div>
+            </li>
+          ))}
+        </ul>
+        <a class="btn btn-ghost" href="/privacy">Read the full privacy policy <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Credits & Pro -->
+  <section id="pricing" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">How credits work</span>
+        <h2 class="h2">Typing is free. AI runs on credits.</h2>
+        <p class="lede">Suggest, Enhance and Fumble checks use 1 credit each. If a request fails, no credit is used.</p>
+      </div>
+      <div class="plans">
+        <div class="card plan">
+          <span class="label">Free</span>
+          <p class="num">20</p>
+          <p class="plan-sub">one-time welcome credits for new accounts</p>
+          <ul class="points">
+            <li><Icon name="check" />The full Senzz keyboard, free forever</li>
+            <li><Icon name="check" />AI reply suggestions</li>
+            <li><Icon name="check" />Message enhancement</li>
+            <li><Icon name="check" />Fumble Protection</li>
+          </ul>
+        </div>
+        <div class="card plan pro">
+          <span class="label">Senzz Pro</span>
+          <p class="num">1,000</p>
+          <p class="plan-sub">AI credits every month</p>
+          <ul class="points">
+            <li><Icon name="check" />Suggest, Enhance and Fumble Protection</li>
+            <li><Icon name="check" />Advanced tones</li>
+            <li><Icon name="check" />Refills every billing month</li>
+            <li><Icon name="check" />Billed monthly via Google Play. Cancel anytime</li>
+          </ul>
+          <a class="btn btn-primary" href={SITE.playUrl} rel="noopener">Get Senzz</a>
+        </div>
+      </div>
+      <p class="plan-note">Senzz Pro is bought inside the app. The price for your country is shown by Google Play before you subscribe.</p>
+    </div>
+  </section>
+
+  <!-- Setup -->
+  <section class="section setup">
+    <div class="wrap feature-grid flip">
+      <div class="feature-copy">
+        <span class="label">Setup</span>
+        <h2 class="h2">On in about 20 seconds.</h2>
+        <ol class="steps">
+          {steps.map(([t, h], i) => (
+            <li class="card"><span class="step-n">{i + 1}</span><div><h3>{t}</h3><p>{h}</p></div></li>
+          ))}
+        </ol>
+        <p class="plan-note">Android warns that any keyboard can collect what you type. That’s a standard message. <a href="/privacy">See what Senzz actually does.</a></p>
+      </div>
+      <div class="feature-shot">
+        <Phone shot="setup.png" alt="Senzz onboarding screen: Turn on Senzz Keyboard" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section final">
+    <div class="wrap">
+      <div class="card cta-card">
+        <h2 class="h2">Meet Senzz<span class="accent">.</span></h2>
+        <p class="lede">Your AI texting copilot, right inside your keyboard. Android 8.0 and up.</p>
+        <div class="ctas">
+          <a class="btn btn-primary" href={SITE.playUrl} rel="noopener">Get it on Google Play <Icon name="arrow" /></a>
+          <a class="btn btn-secondary" href="/faq">Read the FAQ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Hero */
+  .hero { position: relative; padding: clamp(48px, 7vw, 96px) 0 clamp(64px, 8vw, 112px); overflow: hidden; }
+  .glow {
+    position: absolute; inset: -20% -10% auto auto; width: 70%; aspect-ratio: 1;
+    background: radial-gradient(closest-side, rgb(200 241 53 / 0.13), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid { position: relative; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
+  .hero-copy { display: grid; gap: 24px; justify-items: start; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .facts { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 22px; color: var(--text2); font-size: 14px; }
+  .facts li { display: inline-flex; align-items: center; gap: 8px; }
+  .facts :global(svg) { width: 16px; height: 16px; color: var(--volt); }
+  .hero-phones { position: relative; display: grid; justify-items: center; min-height: 560px; }
+  .hero-phones :global(.front) { position: relative; z-index: 1; transform: translateX(14%); }
+  .hero-phones :global(.back) { position: absolute; top: 48px; left: 0; max-width: 250px; opacity: 0.55; transform: translateX(-6%) rotate(-6deg); }
+
+  /* Trio */
+  .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .tile {
+    display: grid; gap: 10px; justify-items: start; padding: 24px;
+    text-decoration: none; transition: background-color 150ms var(--ease), transform 150ms var(--ease);
+  }
+  .tile:hover { background: var(--raised); transform: translateY(-2px); }
+  .tile-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-button); background: var(--inset); color: var(--volt); margin-bottom: 6px; }
+  .tile-icon :global(svg) { width: 22px; height: 22px; }
+  .tile.fumble .tile-icon { color: var(--ember); background: var(--ember-surface); }
+  .tile.enhance .tile-icon { color: var(--text); }
+  .tile-hint { color: var(--text2); margin-bottom: 8px; }
+  .badge :global(svg) { color: var(--volt); }
+
+  /* Feature rows */
+  .feature { border-top: 1px solid var(--divider); }
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .flip .feature-copy { order: 2; }
+  .feature-copy { display: grid; gap: 20px; justify-items: start; }
+  .feature-shot { display: grid; justify-items: center; }
+  .feature-name { display: inline-flex; align-items: center; gap: 10px; font: 500 12px/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--volt); }
+  .feature-name :global(svg) { width: 20px; height: 20px; }
+  .feature.fumble .feature-name, .feature.fumble .points :global(svg) { color: var(--ember); }
+  .points { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 12px; }
+  .points li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; color: var(--text2); }
+  .points :global(svg) { width: 18px; height: 18px; margin-top: 3px; color: var(--volt); }
+
+  /* Languages */
+  .langs { background: var(--keyboard); border-block: 1px solid var(--divider); }
+  .center { margin-inline: auto; text-align: center; justify-items: center; }
+  .lang-row { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+  .lang-row .chip { padding: 12px 16px; font-size: 16px; }
+  .lang-row .label { color: var(--volt); }
+
+  /* Privacy */
+  .privacy-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 64px; align-items: center; }
+  .privacy-list { list-style: none; margin: 0 0 28px; padding: 0; display: grid; gap: 12px; }
+  .privacy-list li { display: grid; grid-template-columns: auto 1fr; gap: 16px; padding: 18px 20px; }
+  .privacy-list .tile-icon { margin: 0; }
+  .privacy-list h3, .steps h3 { margin: 0 0 4px; font-size: 16px; font-weight: 600; }
+  .privacy-list p, .steps p { margin: 0; color: var(--text2); font-size: 15px; }
+
+  /* Plans */
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 880px; }
+  .plan { display: grid; gap: 8px; align-content: start; padding: 28px; }
+  .plan .btn { margin-top: 20px; }
+  .num { margin: 8px 0 0; font: 700 64px/1 var(--display); letter-spacing: -0.04em; }
+  .pro { background: var(--volt-tint); box-shadow: 0 0 0 1px rgb(200 241 53 / 0.22); }
+  .pro .num, .pro > .label { color: var(--volt); }
+  .plan-sub { margin: 0 0 16px; color: var(--text2); }
+  .plan-note { margin: 24px 0 0; color: var(--text3); font-size: 14px; max-width: 40em; }
+  .plan-note a { color: var(--text2); }
+
+  /* Setup */
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; width: 100%; }
+  .steps li { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; padding: 16px 20px; }
+  .step-n { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--volt); color: var(--on-volt); font: 600 14px/1 var(--mono); }
+
+  /* Final */
+  .final { padding-top: 0; }
+  .cta-card {
+    position: relative; overflow: hidden;
+    display: grid; gap: 20px; justify-items: center; text-align: center;
+    padding: clamp(48px, 7vw, 88px) 24px;
+    background: radial-gradient(120% 140% at 50% 0%, rgb(200 241 53 / 0.12), transparent 55%), var(--surface);
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid, .feature-grid, .privacy-grid { grid-template-columns: 1fr; gap: 48px; }
+    .flip .feature-copy { order: 0; }
+    .hero-phones { min-height: 0; }
+    .hero-phones :global(.front) { transform: none; }
+    .hero-phones :global(.back) { display: none; }
+    .trio, .plans { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .ctas { width: 100%; }
+    .ctas .btn { flex: 1 1 100%; }
+  }
+</style>

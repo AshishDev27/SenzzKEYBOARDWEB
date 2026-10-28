@@ -1,0 +1,120 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../site';
+
+// Plain-text answers so they can also go into the FAQPage structured data below.
+const groups = [
+  {
+    id: 'basics', title: 'The basics',
+    items: [
+      ['What is Senzz?', 'Senzz is an Android keyboard with an AI texting copilot built in. Suggest writes replies that fit the chat, Enhance polishes your draft, and Fumble Protection flags risky texts before you send them.'],
+      ['Which phones does it work on?', 'Android phones running Android 8.0 or newer. Senzz isn’t available on iPhone.'],
+      ['Which apps does it work in?', 'Senzz is a system keyboard, so you can type with it in any app. Suggest reads the chat in the app you’re typing in, if you allow Conversation analysis.'],
+      ['Which languages are supported?', 'Suggest and Enhance can write in English, Hindi, Hinglish, Bengali, Benglish and more. Pick yours in Settings. Autocorrect works in English.'],
+    ],
+  },
+  {
+    id: 'setup', title: 'Setup',
+    items: [
+      ['How do I turn on the keyboard?', 'Open the Senzz app and follow setup: enable Senzz in Settings › System › Keyboard › Manage, then pick Senzz in the keyboard chooser. It takes about 20 seconds.'],
+      ['Why does Android warn that the keyboard can collect what I type?', 'Android shows that standard warning for every keyboard you didn’t get with your phone. Senzz processes ordinary typing on your phone and only sends text when you start an AI action. See our Privacy Policy for details.'],
+      ['How do I switch back to my old keyboard?', 'Tap the keyboard icon in your navigation bar (or long-press the space bar on some phones) and choose another keyboard.'],
+    ],
+  },
+  {
+    id: 'chat', title: 'Suggest and chat reading',
+    items: [
+      ['How does Suggest know what the other person said?', 'If you turn on Conversation analysis, Senzz uses Android’s Accessibility service to read the messages visible on screen, only at the moment you tap Suggest and only in the app you’re typing in. It takes no screenshots and does nothing in the background.'],
+      ['Do I have to allow chat reading?', 'No. Without it, copy the message you want to answer and tap “Use copied”. Senzz still works as a keyboard either way.'],
+      ['Suggest says the chat is unclear. What now?', 'Some apps don’t expose their messages clearly. Copy the message you want to reply to and use “Use copied”.'],
+      ['Does Senzz store my chats?', 'No. The text of an AI request is used for that one request. Senzz doesn’t store or log it and never uses it for ads.'],
+    ],
+  },
+  {
+    id: 'fumble', title: 'Fumble Protection',
+    items: [
+      ['How does Fumble Protection work?', 'Turn on the shield in the keyboard. When you press the keyboard’s Send key, Senzz checks your message. If it could land badly, you see a warning and choose whether to send.'],
+      ['Will it ever stop my message from sending?', 'Only when it shows you a warning, and you decide what happens next. If Senzz can’t be reached, your message sends normally.'],
+    ],
+  },
+  {
+    id: 'credits', title: 'Credits and Senzz Pro',
+    items: [
+      ['What are credits?', 'Each Suggest, Enhance or Fumble check uses 1 credit. Typing with the keyboard is always free. If a request fails, no credit is used.'],
+      ['How many free credits do I get?', 'New accounts get 20 one-time welcome credits, once per email address.'],
+      ['What is Senzz Pro?', 'A monthly subscription through Google Play with 1,000 AI credits every billing month and advanced tones. The price for your country is shown in Google Play before you subscribe.'],
+      ['I paid but Pro isn’t showing.', 'Open the Senzz Pro screen in the app and tap Restore purchases, signed in to the Senzz account you bought it with. If it’s still missing, email us your Google Play order ID.'],
+      ['How do I cancel Senzz Pro?', 'In the Play Store app go to Profile › Payments & subscriptions › Subscriptions, choose Senzz and cancel. You keep Pro until the end of the period you paid for.'],
+      ['What happens when I run out of credits?', 'Your keyboard keeps working as normal. Only Suggest, Enhance and Fumble checks pause until your plan refills.'],
+    ],
+  },
+  {
+    id: 'account', title: 'Account and privacy',
+    items: [
+      ['Is ordinary typing sent anywhere?', 'No. No AI request is ever sent per keystroke. AI is also never used in password, incognito, number, phone or email fields.'],
+      ['Where is my clipboard history kept?', 'Encrypted on your phone only. Unpinned clips are removed after an hour. Clear it any time in Settings.'],
+      ['How do I delete my account?', 'In the app go to Settings › Data controls › Delete your account. Without the app, email us from your account’s email address.'],
+    ],
+  },
+] as const;
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: groups.flatMap((g) => g.items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))),
+});
+---
+<Base title="FAQ" description="Answers about the Senzz AI keyboard: setup, Suggest, chat reading, Fumble Protection, credits, Senzz Pro and privacy.">
+  <script type="application/ld+json" slot="head" set:html={jsonLd} is:inline />
+  <div class="wrap">
+    <header class="page-head">
+      <span class="label">FAQ</span>
+      <h1 class="h2">Questions, answered.</h1>
+      <p class="lede">Can’t find yours? Email <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>.</p>
+    </header>
+
+    <nav class="jump" aria-label="FAQ sections">
+      {groups.map((g) => <a class="chip" href={`#${g.id}`}>{g.title}</a>)}
+    </nav>
+
+    <div class="groups">
+      {groups.map((g) => (
+        <section id={g.id} aria-labelledby={`${g.id}-h`}>
+          <h2 id={`${g.id}-h`} class="label">{g.title}</h2>
+          <div class="card list">
+            {g.items.map(([q, a]) => (
+              <details>
+                <summary><span>{q}</span><Icon name="chevron" /></summary>
+                <p>{a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</Base>
+
+<style>
+  .page-head a { color: var(--volt); }
+  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px; }
+  .jump .chip { text-decoration: none; font-size: 14px; }
+  .jump .chip:hover { background: #26272d; }
+  .groups { display: grid; gap: 40px; max-width: 820px; padding-bottom: 96px; }
+  section { scroll-margin-top: 88px; }
+  h2.label { margin: 0 0 12px 6px; }
+  .list { overflow: hidden; }
+  details + details { border-top: 1px solid var(--divider); }
+  summary {
+    list-style: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    min-height: 56px; padding: 16px 20px;
+    font-size: 16px; font-weight: 500;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { background: var(--raised); }
+  summary :global(svg) { flex: none; width: 18px; height: 18px; color: var(--text3); transition: transform 150ms var(--ease); }
+  details[open] summary :global(svg) { transform: rotate(180deg); color: var(--volt); }
+  details p { margin: 0; padding: 0 20px 20px; color: var(--text2); line-height: 1.6; max-width: 62ch; }
+</style>

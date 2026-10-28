@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import Phone from '../components/Phone.astro';
+import Icon from '../components/Icon.astro';
+import { SITE, mailto } from '../site';
+---
+<Base title="Delete your account" description="How to delete your Senzz account and data, in the app or by email, and what gets deleted.">
+  <div class="wrap">
+    <header class="page-head">
+      <span class="label">Senzz Keyboard · Account deletion</span>
+      <h1 class="h2">Delete your Senzz account</h1>
+      <p class="lede">You can delete your account and its data at any time, from the app or by email if you no longer have the app.</p>
+    </header>
+
+    <div class="layout">
+      <article class="prose">
+        <h2 id="in-app">Option 1: In the app (instant)</h2>
+        <ol>
+          <li>Open the <strong>Senzz</strong> app and sign in.</li>
+          <li>Go to <span class="path">Settings › Data controls</span>.</li>
+          <li>Tap <strong>Delete your account</strong>, then <strong>Delete permanently</strong>.</li>
+        </ol>
+        <p>Your account is deleted straight away. The app also signs you out and clears your settings and clipboard history on that device. Learned words and recent emoji stay on the phone until you clear Senzz’s storage or uninstall it.</p>
+
+        <h2 id="email">Option 2: By email</h2>
+        <p>If you uninstalled the app or can’t sign in, email us from the address you signed up with:</p>
+        <p><a class="btn btn-primary" href={mailto('Delete my Senzz account')}><Icon name="mail" />Email {SITE.supportEmail}</a></p>
+        <p>Use the subject “Delete my Senzz account”. We may ask you to confirm the request from that email address, so we only delete accounts for their owners. We complete requests within 30 days and email you when it’s done.</p>
+
+        <h2 id="what">What gets deleted</h2>
+        <ul>
+          <li>Your Senzz account and sign-in details</li>
+          <li>Your credits, including any Senzz Pro allowance and extra credits</li>
+          <li>Your credit history and AI request records</li>
+          <li>Stored Google Play purchase records for your account</li>
+        </ul>
+
+        <h2 id="kept">What we keep</h2>
+        <p>Only a one-way hash of your normalised email address, with the date the welcome credits were claimed and the deleted account’s random ID, kept so a re-created account can’t claim the free welcome credits again. The hash can’t be turned back into your email address. Database backups may contain deleted data until they expire. We never stored the text of your messages, so there is none to delete.</p>
+
+        <div class="card callout ember">
+          <strong>Have Senzz Pro?</strong> Your subscription is billed by Google Play. Deleting your account doesn’t cancel it. Cancel it in <a href={SITE.playSubscriptionsUrl} rel="noopener">Play Store › Subscriptions</a> so you’re not charged again.
+        </div>
+      </article>
+      <aside class="shot">
+        <Phone shot="delete-account.png" alt="Senzz Settings, Data controls screen with the Delete your account option" />
+      </aside>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .layout { display: grid; grid-template-columns: 1fr 300px; gap: 64px; align-items: start; }
+  .shot { position: sticky; top: 100px; padding-top: 48px; }
+  .prose .btn { color: var(--on-volt); text-decoration: none; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; gap: 0; }
+    .shot { position: static; padding: 0 0 96px; display: grid; justify-items: center; }
+  }
+</style>

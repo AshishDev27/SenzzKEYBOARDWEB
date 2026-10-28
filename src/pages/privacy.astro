@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { Content } from '../legal/privacy.md';
+import { SITE, mailto } from '../site';
+---
+<Base title="Privacy Policy" description="How the Senzz keyboard and app handle your data: what is processed, why, where it is kept, for how long, and how you control it.">
+  <div class="wrap">
+    <article class="prose legal">
+      <Content />
+      <h2>Contact</h2>
+      <p>Questions about this policy or your data? Email <a href={mailto('Privacy question')}>{SITE.supportEmail}</a>. To delete your account without the app, see <a href="/delete-account">Delete your account</a>.</p>
+    </article>
+  </div>
+</Base>

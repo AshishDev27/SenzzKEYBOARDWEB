@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { Content } from '../legal/terms.md';
+import { SITE, mailto } from '../site';
+---
+<Base title="Terms of Service" description="The terms for using the Senzz AI texting keyboard, credits and Senzz Pro.">
+  <div class="wrap">
+    <article class="prose legal">
+      <Content />
+      <h2>Contact</h2>
+      <p>Questions about these terms? Email <a href={mailto('Terms question')}>{SITE.supportEmail}</a>.</p>
+    </article>
+  </div>
+</Base>

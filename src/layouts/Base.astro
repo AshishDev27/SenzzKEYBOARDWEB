@@ -1,0 +1,159 @@
+---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import '../styles/global.css';
+import Logo from '../components/Logo.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../site';
+
+interface Props {
+  title: string;        // page title, without the "· Senzz" suffix
+  description?: string;
+  noindex?: boolean;
+}
+const { title, description = SITE.description, noindex = false } = Astro.props;
+const fullTitle = title === SITE.name ? `${SITE.name}: AI texting keyboard for Android` : `${title} · ${SITE.name}`;
+// build.format 'file' gives "/privacy.html" and "/index.html"; canonical is "/privacy" and "/".
+const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/'), SITE.url).href;
+// Social preview image: only referenced once public/og-image.png exists (see LAUNCH_CHECKLIST.md).
+const ogImage = existsSync(join(process.cwd(), 'public', 'og-image.png')) ? new URL('/og-image.png', SITE.url).href : null;
+
+const nav = [
+  { href: '/#features', label: 'Features' },
+  { href: '/#privacy', label: 'Privacy' },
+  { href: '/faq', label: 'FAQ' },
+  { href: '/support', label: 'Support' },
+];
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta name="theme-color" content="#0B0C0E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="preload" href="/fonts/geist.ttf" as="font" type="font/ttf" crossorigin />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={SITE.name} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  {ogImage && <meta property="og:image" content={ogImage} />}
+  <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  {ogImage && <meta name="twitter:image" content={ogImage} />}
+  <slot name="head" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="brand" href="/" aria-label="Senzz home"><Logo /><span>Senzz</span></a>
+      <nav class="links" aria-label="Main">
+        {nav.map((l) => <a href={l.href}>{l.label}</a>)}
+      </nav>
+      <a class="btn btn-primary get" href={SITE.playUrl} rel="noopener">Get Senzz</a>
+      <details class="menu">
+        <summary aria-label="Menu"><span></span><span></span></summary>
+        <nav aria-label="Mobile">
+          {nav.map((l) => <a href={l.href}>{l.label}</a>)}
+          <a class="btn btn-primary" href={SITE.playUrl} rel="noopener">Get it on Google Play</a>
+        </nav>
+      </details>
+    </div>
+  </header>
+
+  <main id="main"><slot /></main>
+
+  <footer class="site-footer">
+    <div class="wrap foot">
+      <div class="foot-brand">
+        <a class="brand" href="/" aria-label="Senzz home"><Logo /><span>Senzz</span></a>
+        <p>Your texting copilot.</p>
+        <a class="mail" href={`mailto:${SITE.supportEmail}`}><Icon name="mail" />{SITE.supportEmail}</a>
+      </div>
+      <nav class="foot-links" aria-label="Footer">
+        <div>
+          <span class="label">Product</span>
+          <a href="/#features">Features</a>
+          <a href="/#pricing">Credits &amp; Pro</a>
+          <a href="/faq">FAQ</a>
+          <a href={SITE.playUrl} rel="noopener">Google Play</a>
+        </div>
+        <div>
+          <span class="label">Help</span>
+          <a href="/support">Support</a>
+          <a href="/delete-account">Delete account</a>
+        </div>
+        <div>
+          <span class="label">Legal</span>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms</a>
+        </div>
+      </nav>
+    </div>
+    <div class="wrap fine">
+      <span>© {year} Senzz</span>
+      <span>Google Play is a trademark of Google LLC.</span>
+    </div>
+  </footer>
+</body>
+</html>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 5;
+    background: rgb(11 12 14 / 0.82);
+    backdrop-filter: saturate(140%) blur(14px);
+    -webkit-backdrop-filter: saturate(140%) blur(14px);
+    border-bottom: 1px solid var(--divider);
+  }
+  .bar { display: flex; align-items: center; gap: 24px; height: 68px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font: 700 21px/1 var(--display); letter-spacing: -0.03em; }
+  .links { display: flex; gap: 4px; margin-left: auto; }
+  .links a { padding: 10px 12px; border-radius: var(--r-row); color: var(--text2); text-decoration: none; font-size: 15px; font-weight: 500; }
+  .links a:hover { color: var(--text); background: var(--surface); }
+  .get { min-height: 42px; padding: 0 16px; font-size: 15px; border-radius: var(--r-button); }
+
+  .menu { display: none; margin-left: auto; }
+  .menu summary { list-style: none; cursor: pointer; width: 44px; height: 44px; display: grid; place-content: center; gap: 6px; border-radius: var(--r-button); }
+  .menu summary::-webkit-details-marker { display: none; }
+  .menu summary span { width: 20px; height: 1.8px; border-radius: 2px; background: var(--text); transition: transform 150ms var(--ease); }
+  .menu[open] summary span:first-child { transform: translateY(3.9px) rotate(45deg); }
+  .menu[open] summary span:last-child { transform: translateY(-3.9px) rotate(-45deg); }
+  .menu nav {
+    position: absolute; left: 0; right: 0; top: 68px;
+    display: grid; gap: 4px; padding: 12px var(--gutter) 20px;
+    background: var(--canvas); border-bottom: 1px solid var(--divider);
+  }
+  .menu nav a:not(.btn) { padding: 14px 4px; text-decoration: none; font-size: 17px; font-weight: 500; border-bottom: 1px solid var(--divider); }
+  .menu nav .btn { margin-top: 12px; }
+  @media (max-width: 760px) {
+    .links, .get { display: none; }
+    .menu { display: block; }
+  }
+
+  .site-footer { border-top: 1px solid var(--divider); background: var(--keyboard); padding: 56px 0 28px; }
+  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
+  .foot-brand { display: grid; gap: 12px; align-content: start; }
+  .foot-brand p { margin: 0; color: var(--text3); }
+  .mail { display: inline-flex; align-items: center; gap: 8px; color: var(--text2); text-decoration: none; font-size: 15px; }
+  .mail:hover { color: var(--volt); }
+  .mail :global(svg) { width: 18px; height: 18px; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 48px; }
+  .foot-links div { display: grid; gap: 12px; align-content: start; }
+  .foot-links a { color: var(--text2); text-decoration: none; font-size: 15px; }
+  .foot-links a:hover { color: var(--text); }
+  .fine { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--divider); color: var(--placeholder); font-size: 13px; }
+</style>

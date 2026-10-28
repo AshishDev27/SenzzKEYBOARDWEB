@@ -1,0 +1,71 @@
+---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+// A phone frame around a real app screenshot from public/screenshots/.
+// If the file isn't there yet, it shows a clearly marked placeholder instead, so nothing is faked.
+interface Props {
+  shot: string;      // file name in public/screenshots, e.g. "home.png"
+  alt: string;       // what the screenshot shows, for screen readers
+  eager?: boolean;   // true for the hero image only
+  class?: string;
+}
+const { shot, alt, eager = false, class: cls } = Astro.props;
+const found = existsSync(join(process.cwd(), 'public', 'screenshots', shot));
+---
+<figure class:list={['phone', cls]}>
+  <div class="frame">
+    <div class="screen">
+      {found ? (
+        <img src={`/screenshots/${shot}`} alt={alt} width="1080" height="2400"
+          loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : 'auto'} />
+      ) : (
+        <div class="placeholder" role="img" aria-label={`Screenshot placeholder: ${alt}`}>
+          <span class="label">Screenshot placeholder</span>
+          <span class="what">{alt}</span>
+          <code>public/screenshots/{shot}</code>
+        </div>
+      )}
+    </div>
+  </div>
+</figure>
+
+<style>
+  .phone { margin: 0; width: 100%; max-width: 300px; }
+  .frame {
+    position: relative;
+    padding: 10px;
+    border-radius: 46px;
+    background: linear-gradient(160deg, #26272d, #121316 45%, #17181c);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.1),
+      0 0 0 1px rgb(255 255 255 / 0.06),
+      0 40px 80px -30px rgb(0 0 0 / 0.8);
+  }
+  /* Side buttons */
+  .frame::before, .frame::after {
+    content: ''; position: absolute; right: -3px; width: 3px; border-radius: 0 2px 2px 0; background: #24252b;
+  }
+  .frame::before { top: 22%; height: 9%; }
+  .frame::after { top: 34%; height: 15%; }
+  .screen {
+    position: relative;
+    aspect-ratio: 9 / 20;
+    border-radius: 37px;
+    overflow: hidden;
+    background: var(--canvas);
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 0.6);
+  }
+  img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    padding: 24px; text-align: center;
+    border: 1.5px dashed rgb(200 241 53 / 0.35);
+    border-radius: 37px;
+    background: repeating-linear-gradient(135deg, var(--surface) 0 14px, var(--canvas) 14px 28px);
+  }
+  .placeholder .label { color: var(--volt); }
+  .what { font-size: 15px; font-weight: 500; color: var(--text); max-width: 16em; }
+  code { font: 500 11px/1.4 var(--mono); color: var(--text3); word-break: break-all; }
+</style>
