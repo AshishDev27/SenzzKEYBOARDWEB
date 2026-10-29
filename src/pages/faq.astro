@@ -10,7 +10,7 @@ const groups = [
     items: [
       ['What is Senzz?', 'Senzz is an Android keyboard with an AI texting copilot built in. Suggest writes replies that fit the chat, Enhance polishes your draft, and Fumble Protection flags risky texts before you send them.'],
       ['Which phones does it work on?', 'Android phones running Android 8.0 or newer. Senzz isn’t available on iPhone.'],
-      ['Which apps does it work in?', 'Senzz is a system keyboard, so you can type with it in any app. Suggest reads the chat in the app you’re typing in, if you allow Conversation analysis.'],
+      ['Which apps does it work in?', 'Senzz is a system keyboard, so you can type with it in any app. Suggest and Fumble check see the chat in the app you’re typing in, if you allow Conversation analysis.'],
       ['Which languages are supported?', 'Suggest and Enhance can write in English, Hindi, Hinglish, Bengali, Benglish and more. Pick yours in Settings. Autocorrect works in English.'],
     ],
   },
@@ -25,10 +25,10 @@ const groups = [
   {
     id: 'chat', title: 'Suggest and chat reading',
     items: [
-      ['How does Suggest know what the other person said?', 'If you turn on Conversation analysis, Senzz uses Android’s Accessibility service to read the messages visible on screen, only at the moment you tap Suggest and only in the app you’re typing in. It takes no screenshots and does nothing in the background.'],
-      ['Do I have to allow chat reading?', 'No. Without it, copy the message you want to answer and tap “Use copied”. Senzz still works as a keyboard either way.'],
-      ['Suggest says the chat is unclear. What now?', 'Some apps don’t expose their messages clearly. Copy the message you want to reply to and use “Use copied”.'],
-      ['Does Senzz store my chats?', 'No. The text of an AI request is used for that one request. Senzz doesn’t store or log it and never uses it for ads.'],
+      ['How does Suggest know what the other person said?', 'If you turn on Conversation analysis, Senzz uses Android’s Accessibility service to take a screenshot of the chat open in the app you’re typing in, only at the moment you tap Suggest or Fumble check. The keyboard isn’t in it, and nothing happens in the background. Needs Android 11 or newer.'],
+      ['Do I have to allow chat reading?', 'No. Without it, Suggest and Fumble check can’t see the chat, but Senzz still works as a keyboard and Enhance still works on your draft.'],
+      ['Suggest says it can’t see the chat. What now?', 'Some apps, like banking apps, block screenshots, so Senzz can’t capture them. If it says it couldn’t capture the chat, try again.'],
+      ['Does Senzz store my chats?', 'No. The text or screenshot of an AI request is sent once to Senzz’s AI provider for that one request. Senzz doesn’t keep or log it, and never uses it for ads.'],
     ],
   },
   {

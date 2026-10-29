@@ -1,13 +1,14 @@
 # Terms of Service
 
-Version 1.0 · Effective 28 October 2026 · Last updated 28 October 2026
+Version 1.1 · Effective 29 October 2026 · Last updated 29 October 2026
 
 ## 1. What Senzz does
 
 Senzz is an Android keyboard. With an account it offers AI features:
 
-- **Suggest** writes replies for a chat, based on the other person's recent messages (read with your permission) or text you copied.
+- **Suggest** writes replies for a chat, based on a screenshot of the chat taken when you tap it (with your permission).
 - **Enhance** rewrites your draft in the tone you choose.
+- **Fumble check** reviews the visible conversation from a screenshot (with your permission): how it's going, what you're doing well, what could land better, and a suggested next move.
 - **Fumble Protection** checks a draft before you send it and warns you if it might come across badly. It is off by default.
 
 The keyboard works without an account. The AI features need an account and credits.
@@ -17,12 +18,12 @@ The keyboard works without an account. The AI features need an account and credi
 Replies, rewrites and warnings are generated automatically by an AI model. They may be inaccurate, inappropriate or not what you meant. Some tones, such as Toxic, deliberately produce rude or provocative replies.
 
 - You decide what to send. Read every suggestion before you use it. You are responsible for the messages you send and their consequences.
-- Fumble Protection is advice, not a guarantee. It can miss problems or flag messages that are fine.
+- Fumble check and Fumble Protection are advice, not a guarantee. They can miss problems or flag messages that are fine, and they can't know what anyone feels or intends.
 - Don't rely on Senzz for medical, legal, financial or safety-critical decisions.
 
 ## 3. Other people's messages
 
-Suggest can read messages that other people sent you. Only use it where you are allowed to share those messages with an AI service for that purpose, and respect the other people in your conversations.
+Suggest and Fumble check send a screenshot of your chat, including messages, names and pictures of other people, to our AI provider. Only use it where you are allowed to share that chat with an AI service for that purpose, and respect the other people in your conversations.
 
 ## 4. Acceptable use
 
